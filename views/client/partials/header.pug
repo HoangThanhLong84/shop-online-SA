@@ -1,1 +1,53 @@
-header Header 
+.container-fluid.fixed-top
+  .container.topbar.bg-primary.d-none.d-lg-block
+    .d-flex.justify-content-between
+      .top-info.ps-2
+        small.me-3
+          i.fas.fa-map-marker-alt.me-2.text-secondary
+          a.text-white(href='#') 123 DN11, phường Tân Hưng Thuận, Quận 12
+        small.me-3
+          i.fas.fa-envelope.me-2.text-secondary
+          a.text-white(href='#') NongsanGK@gmail.com
+      .top-link.pe-2
+        a.text-white(href='#')
+          small.text-white.mx-2 Chính sách bảo mật
+          | /
+        a.text-white(href='#')
+          small.text-white.mx-2 Điều khoản sử dụng
+  .container.px-0
+    nav.navbar.navbar-light.bg-white.navbar-expand-xl
+      a.navbar-brand(href='index.html')
+        h1.text-primary.display-6 Nông sản GK
+      button.navbar-toggler.py-2.px-3(type='button' data-bs-toggle='collapse' data-bs-target='#navbarCollapse')
+        span.fa.fa-bars.text-primary
+      #navbarCollapse.collapse.navbar-collapse.bg-white
+        .navbar-nav.mx-auto
+          a.nav-item.nav-link.active(href='/') Trang chủ
+          a.nav-item.nav-link(href='/products') Cửa hàng
+          .nav-item.dropdown
+            a.nav-link.dropdown-toggle(href='#' data-bs-toggle='dropdown') Pages
+            .dropdown-menu.m-0.bg-secondary.rounded-0
+              a.dropdown-item(href='cart.html') Giỏ hàng
+              a.dropdown-item(href='chackout.html') Checkout
+              a.dropdown-item(href='testimonial.html') Testimonial
+              a.dropdown-item(href='404.html') 404 Page
+          a.nav-item.nav-link(href='contact.html') Liên hệ
+        .d-flex.m-3.me-0
+          button.btn-search.btn.border.border-secondary.btn-md-square.rounded-circle.bg-white.me-4(data-bs-toggle='modal' data-bs-target='#searchModal')
+            i.fas.fa-search.text-primary
+          a.position-relative.me-4.my-auto(href='#')
+            i.fa.fa-shopping-bag.fa-2x
+            span.position-absolute.bg-secondary.rounded-circle.d-flex.align-items-center.justify-content-center.text-dark.px-1(style='top: -5px; left: 15px; height: 20px; min-width: 20px;') 0
+          a.my-auto(href='#')
+            i.fas.fa-user.fa-2x
+#searchModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+  .modal-dialog.modal-fullscreen
+    .modal-content.rounded-0
+      .modal-header
+        h5#exampleModalLabel.modal-title Search by keyword
+        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+      .modal-body.d-flex.align-items-center
+        .input-group.w-75.mx-auto.d-flex
+          input.form-control.p-3(type='search' placeholder='keywords' aria-describedby='search-icon-1')
+          span#search-icon-1.input-group-text.p-3
+            i.fa.fa-search
