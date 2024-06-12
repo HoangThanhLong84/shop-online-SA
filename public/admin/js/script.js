@@ -1,7 +1,7 @@
 const buttonsStatus = document.querySelectorAll("[button-status");
 if(buttonsStatus.length > 0){
     let url = new URL(window.location.href);
-    
+
     buttonsStatus.forEach(button => {
         button.addEventListener("click", () => {
             const status = button.getAttribute("button-status");
@@ -13,5 +13,22 @@ if(buttonsStatus.length > 0){
 
             window.location.href = url.href;
         });
+    });
+}
+
+// Form Search
+const formSearch = document.querySelector("#form-search");
+if(formSearch) {
+    let url = new URL(window.location.href);
+    formSearch.addEventListener("submit", (a) => {
+        a.preventDefault();
+        const keyword = a.target.elements.keyword.value;
+
+        if(keyword){
+            url.searchParams.set("keyword", keyword);
+        }else{
+            url.searchParams.delete("keyword");
+        }
+        window.location.href= url.href;
     });
 }
