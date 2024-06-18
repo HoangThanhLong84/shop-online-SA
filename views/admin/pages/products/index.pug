@@ -1,6 +1,7 @@
 extends ../../layout/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
+include ../../mixins/pagination.pug
 
 block main
     h1 Danh sách sản phẩm
@@ -41,28 +42,36 @@ block main
                             td #{item.price}VNĐ
                             td
                                 if(item.status == "active")
-                                    a(href="#" class="badge badge-success") Hoạt động
+                                    a(
+                                        href="javascript:;"
+                                        data-status=item.status
+                                        data-id= item.id 
+                                        button-change-status
+                                        class="badge badge-success"
+                                    ) Hoạt động
                                 else 
-                                    a(href="#" class="badge badge-danger") Dừng hoạt động
+                                    a(
+                                        href="javascript:;"
+                                        data-status=item.status
+                                        data-id= item.id 
+                                        button-change-status 
+                                        class="badge badge-danger"
+                                    ) Dừng hoạt động
                             td 
                                 button(class="btn btn-warning btn-sm") Sửa
-                                button(class="btn btn-danger btn-sm ml-1") Xóa
+                                button(
+                                    class="btn btn-danger btn-sm ml-1"
+                                    button-delete
+                                    data-id=item.id
+                                ) Xóa
     
-    nav 
-        ul(class="pagination")
-            if(pagination.currentPage >1 )
-                li(class="page-item")
-                    button(
-                        class="page-link"
-                        button-pagination=pagination.currentPage-1
-                    ) Trang trước 
-            - for(var i=1; i<= pagination.totalPage; i++)
-                li(class=`page-item ${pagination.currentPage == i ? "active" : ""}`)
-                    button(class="page-link" button-pagination=i) #{i}
-            if(pagination.currentPage < pagination.totalPage)
-                li(class="page-item")
-                    button(
-                        class="page-link"
-                        button-pagination=pagination.currentPage+1
-                    ) Kế tiếp
+    +pagination(pagination)
 
+    form(
+        action=""
+        method="GET"
+        id="form-change-status"
+        data-path=`${prefixAdmin}/products/change-status`
+    )
+
+    script(src="/admin/js/product.js")  
