@@ -20,9 +20,9 @@ block main
         .card-header Danh sách sản phẩm
         .card-body
             .row
-                .col-8 
+                .col-11
                     +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
-                .col-4 
+                .col-1
                     a(
                         href=`${prefixAdmin}/products/create`
                         class="btn btn-outline-success"
@@ -88,7 +88,10 @@ block main
                                         class="badge badge-danger"
                                     ) Dừng hoạt động
                             td 
-                                button(class="btn btn-warning btn-sm") Sửa
+                                a(
+                                    href=`${prefixAdmin}/products/edit/${item.id}`
+                                    class="btn btn-warning btn-sm"
+                                ) Sửa
                                 button(
                                     class="btn btn-danger btn-sm ml-1"
                                     button-delete
