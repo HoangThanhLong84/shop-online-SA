@@ -1,5 +1,6 @@
 const Product = require("../../models/product.model");
 
+const productsHelper = require("../../helper/products");
 
 // GET /products
 module.exports.index = async (req, res) => {
@@ -28,10 +29,13 @@ module.exports.detail = async (req, res) => {
         };
         
         const product = await Product.findOne(find);
+        // const newProducts = productsHelper.priceNewProducts(product);
+
         res.render("client/pages/products/detail", {
             pageTitle: product.title,
             product: product
         });
+
     } catch (error) {
         res.redirect(`/products`);
     }
