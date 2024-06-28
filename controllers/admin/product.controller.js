@@ -35,8 +35,17 @@ module.exports.index = async (req, res) => {
     );
 
     // End Pagination
+    // Sort
+    let sort= {};
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey]= req.query.sortValue;
+    }else{
+        sort.position= "desc";
+    }
+    
+    // End Sort
 
-    const products = await Product.find(find).sort({position: "desc"}).limit(objectPagination.limitItems).skip(objectPagination.skip);
+    const products = await Product.find(find).sort(sort).limit(objectPagination.limitItems).skip(objectPagination.skip);
 
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
@@ -101,9 +110,9 @@ module.exports.deleteItem = async (req,res) => {
 };
 
 module.exports.create = async (req, res) => {
-    res.render("admin/pages/products/create"), {
-        pageTitle: "Thêm mới sản phẩm",
-    };
+    res.render("admin/pages/products/create", {
+        pageTitle: "Thêm mới sản phẩm"
+    });
 }
 
 module.exports.createPost = async (req, res) => {
@@ -123,6 +132,7 @@ module.exports.createPost = async (req, res) => {
     await product.save();
 
     res.redirect(`${systemConfig.prefixAdmin}/products`);
+
 }
 
 module.exports.edit = async (req, res) => {

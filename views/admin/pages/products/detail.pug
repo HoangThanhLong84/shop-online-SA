@@ -25,7 +25,7 @@ block main
     if(product.position)
         div(class="mb-4") Vị trí: <b>#{product.position}</b>
     if(product.position)
-        div(class="mb-4") Mô tả: <b>#{product.descriptionDetail}</b>
+        div(class="mb-4") Mô tả: <b>!{product.descriptionDetail}</b>
     a(
         href=`${prefixAdmin}/products/edit/${product.id}`
         class="btn btn-warning btn-sm ml-1"

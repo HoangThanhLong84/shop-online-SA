@@ -33,19 +33,19 @@ block main
             )
         div(class="form-group")
             label(for="desc1") Mô tả ngắn
-            input(
+            textarea(
                 type="text"
-                class="form-control"
+                class="form-control textarea-mce"
                 id="desc1"
                 name="description"
                 rows="2"
                 value= product.description
-            )
+            ) !{product.description}
         div(class="form-group")
             label(for="desc") Mô tả 
             textarea(
                 type="text"
-                class="form-control"
+                class="form-control textarea-mce"
                 id="desc"
                 name="descriptionDetail"
                 rows="3"

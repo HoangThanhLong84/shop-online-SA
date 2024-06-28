@@ -1,35 +1,21 @@
 extends ../../layout/default.pug
-include ../../mixins/filter-status.pug
-include ../../mixins/search.pug
-include ../../mixins/pagination.pug
-include ../../mixins/form-change-multi.pug
-include ../../mixins/alert.pug
-include ../../mixins/sort.pug
+
 
 block main
-    +alert-success("5000")
-    h1 Danh sách sản phẩm
+    h1 Danh sách danh mục
+    
     .card.mb-3 
-        .card-header Bộ lọc và tìm kiếm
-        .card-body
-            .row
-                .col-6 
-                    +filter-status(filterStatus)
-                .col-6 
-                    +search(keyword)
-    .card.mb-3 
-        .card-header Danh sách sản phẩm
+        .card-header Danh mục sản phẩm
         .card-body
             .row
                 .col-9
-                    +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
                 .col-2
-                    +sort()
                 .col-1
                     a(
-                        href=`${prefixAdmin}/products/create`
-                        class="btn btn-outline-success"
+                        href=`${prefixAdmin}/product-category/create`
+                        class="btn btn-outline-success mb-3"
                     ) + Thêm mới
+            
             table(
                 class="table table-hover table-sm"
                 checkbox-multi
@@ -42,12 +28,11 @@ block main
                         th Hình ảnh
                         th Tiêu đề
                         th Vị trí
-                        th Giá
                         th Trạng thái
                         th Hành động
 
                 tbody
-                    each item, index in products 
+                    each item, index in records 
                         tr
                             td 
                                 input(
@@ -64,7 +49,6 @@ block main
                                     height="auto"
                                 )
                             td #{item.title}
-                            td #{item.price}VNĐ
                             td
                                 input(
                                     type="number"
@@ -92,11 +76,11 @@ block main
                                     ) Dừng hoạt động
                             td 
                                 a(
-                                    href=`${prefixAdmin}/products/detail/${item.id}`
+                                    href=`${prefixAdmin}/product-category/detail/${item.id}`
                                     class="btn btn-secondary btn-sm"
                                 ) Chi tiết
                                 a(
-                                    href=`${prefixAdmin}/products/edit/${item.id}`
+                                    href=`${prefixAdmin}/product-category/edit/${item.id}`
                                     class="btn btn-warning btn-sm ml-1"
                                 ) Sửa
                                 button(
@@ -104,21 +88,3 @@ block main
                                     button-delete
                                     data-id=item.id
                                 ) Xóa
-    
-    +pagination(pagination)
-
-    form(
-        action=""
-        method="GET"
-        id="form-change-status"
-        data-path=`${prefixAdmin}/products/change-status`
-    )
-
-    form(
-        action=""
-        method="POST"
-        id="form-delete-item"
-        data-path=`${prefixAdmin}/products/delete`
-    )
-
-    script(src="/admin/js/product.js")  
