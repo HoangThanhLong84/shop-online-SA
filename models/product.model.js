@@ -4,7 +4,14 @@ mongoose.plugin(slug);
 
 const productSchema = new mongoose.Schema({
     "title": String,
-    "category": String,
+    "category": {
+        type:String,
+        default: ""
+    },
+    "product_category_id": {
+        type:String,
+        default: ""
+    },
     "description": String,
     "descriptionDetail": String,
     "price": Number,
