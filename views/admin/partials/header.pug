@@ -1,10 +1,17 @@
-header.header
-  .container-fluid 
-    .row.align-items-center 
-      .col-3 
-        .inner-logo 
-          a(href="/admin/dashboard") ADMIN 
-    
-    .col-9
-
-
+header
+  .header-content
+    label(for='menu-toggle')
+      //- span.las.la-bars
+    .header-menu
+      label(for='')
+        span.las.la-search
+      .notify-icon
+        span.las.la-envelope
+        span.notify 4
+      .notify-icon
+        span.las.la-bell
+        span.notify 3
+      //- .user
+      //-   .bg-img(style='background-image: url(img/1.jpeg)')
+      //-   span.las.la-power-off
+      //-   span Logout

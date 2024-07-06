@@ -1,4 +1,106 @@
 extends ../../layout/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+include ../../mixins/sort.pug
 
 block main  
-    h1 Trang tổng quan
+    .page-header
+        h1 Dashboard
+        small Home / Dashboard
+    .page-content
+        .analytics
+            .card
+                .card-head
+                    h2 107,200
+                    span.las.la-user-friends
+                .card-progress
+                    small User activity this month
+                    .card-indicator
+                        .indicator.one(style='width: 60%')
+            .card
+                .card-head
+                    h2 340,230
+                    span.las.la-eye
+                .card-progress
+                    small Page views
+                        .card-indicator
+                            .indicator.two(style='width: 80%')
+            .card
+                .card-head
+                    h2 $653,200
+                    span.las.la-shopping-cart
+                .card-progress
+                    small Monthly revenue growth
+                        .card-indicator
+                            .indicator.three(style='width: 65%')
+            .card
+                .card-head
+                    h2 47,500
+                    span.las.la-envelope
+                .card-progress
+                    small New E-mails received
+                        .card-indicator
+                            .indicator.four(style='width: 90%')
+        //- .records.table-responsive
+        //-     .record-header
+        //-         .add
+        //-             span Entries
+        //-             select(name='' id='')
+        //-                 option(value='') ID
+        //-             button Add record
+        //-         .browse
+        //-             input.record-search(type='search' placeholder='Search')
+        //-             select(name='' id='')
+        //-                 option(value='') Status
+        //- div
+        //-     table(width='100%')
+        //-         thead
+        //-             tr
+        //-                 th #
+        //-                 th
+        //-                     span.las.la-sort
+        //-                     |  CLIENT
+        //-                 th
+        //-                     span.las.la-sort
+        //-                     |  TOTAL
+        //-                 th
+        //-                     span.las.la-sort
+        //-                     |  ISSUED DATE
+        //-                 th
+        //-                     span.las.la-sort
+        //-                     |  BALANCE
+        //-                 th
+        //-                     span.las.la-sort
+        //-                     |  ACTIONS
+        //-         tbody
+        //-             tr
+        //-                 td #5033
+        //-                 td
+        //-                     .client
+        //-                         .client-img.bg-img(style='background-image: url(img/3.jpeg)')
+        //-                         .client-info
+        //-                             h4 Andrew Bruno
+        //-                             small bruno@crossover.org
+        //-                 td
+        //-                     | $3171
+        //-                 td
+        //-                     | 19 April, 2022
+        //-                 td
+        //-                     | -$205
+        //-                 td
+        //-                     a(
+        //-                         href=``
+        //-                         class="btn btn-secondary btn-sm"
+        //-                     ) Chi tiết
+        //-                     a(
+        //-                         href=``
+        //-                         class="btn btn-warning btn-sm ml-1"
+        //-                     ) Sửa
+        //-                     button(
+        //-                         class="btn btn-danger btn-sm ml-1"
+        //-                         button-delete
+                                
+        //-                     ) Xóa

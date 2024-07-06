@@ -1,13 +1,54 @@
-.sider
-    .inner-menu 
-        ul 
-            li 
-                a(href=`${prefixAdmin}/dashboard`) Tổng quan 
-            li 
-                a(href=`${prefixAdmin}/product-category`) Danh mục sản phẩm  
-            li 
-                a(href=`${prefixAdmin}/products`) Danh sách sản phẩm 
-            li 
-                a(href=`${prefixAdmin}/roles`) Nhóm quyền
-            li 
-                a(href=`${prefixAdmin}/roles/permissions`) Phân quyền    
+//- .sider
+//-     .inner-menu 
+//-         ul 
+//-             li 
+//-                 a(href=`${prefixAdmin}/dashboard`) Tổng quan 
+//-             li 
+//-                 a(href=`${prefixAdmin}/product-category`) Danh mục sản phẩm  
+//-             li 
+//-                 a(href=`${prefixAdmin}/products`) Danh sách sản phẩm 
+//-             li 
+//-                 a(href=`${prefixAdmin}/roles`) Nhóm quyền
+//-             li 
+//-                 a(href=`${prefixAdmin}/roles/permissions`) Phân quyền
+
+input#menu-toggle(type='checkbox')
+.sidebar
+  .side-header
+    h3
+      | A
+      span dmin
+  .side-content
+    .side-menu
+      ul
+        li
+          a(href=`${prefixAdmin}/dashboard`)
+            span.las.la-home
+            small Tổng quan
+        li
+          a(href=`${prefixAdmin}/product-category`)
+            span.las.la-clipboard-list
+            small Danh mục sản phẩm
+        li
+          a(href=`${prefixAdmin}/products`)
+            span.las.la-clipboard-list
+            small Danh sách sản phẩm
+        li
+          a(href=`${prefixAdmin}/roles`)
+            span.las.la-tasks
+            small Nhóm quyền
+        li
+          a(href=`${prefixAdmin}/roles/permissions`)
+            span.las.la-tasks
+            small Phân quyền
+        li
+          a(href=``)
+            span.las.la-user-alt
+            small Danh sách tài khoản
+        <li>
+            <a href="">
+                <span class="las la-shopping-cart"></span>
+                <small>Danh sách đơn hàng</small>
+            </a>
+        </li>
+        
