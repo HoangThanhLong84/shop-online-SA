@@ -1,8 +1,10 @@
 extends ../../layout/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
 
 block main 
     
+
     <div class="container-fluid page-header py-5">
         <h1 class="text-center text-white display-6">#{product.title}</h1>
         <ol class="breadcrumb justify-content-center mb-0">
@@ -13,6 +15,7 @@ block main
         </ol>
     </div>
     
+    +alert-success(2000)
     <div class="container-fluid py-5 mt-5">
         <div class="container py-5">
             <div class="row g-4 mb-5">

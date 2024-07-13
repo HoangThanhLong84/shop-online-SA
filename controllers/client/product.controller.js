@@ -1,5 +1,6 @@
 const Product = require("../../models/product.model");
 const ProductCategory = require("../../models/product-category.model");
+const Cart = require("../../models/cart.model");
 
 const productsHelper = require("../../helper/products");
 
@@ -38,6 +39,16 @@ module.exports.index = async (req, res) => {
     const records = await ProductCategory.find(find);
     const newRecords = createTree(records);
 
+    if(!req.cookies.cartId){
+        const expiresTime = 1000 * 60 * 60 * 24 * 365;
+        const cart = new Cart();
+        await cart.save();
+        console.log(cart);
+        res.cookie("cartId", cart.id, {
+            expires: new Date(Date.now() + expiresTime)
+        });  
+    }
+
     res.render("client/pages/products/index", {
         pageTitle: "Trang danh sách sản phẩm",
         products: newProducts,
@@ -56,7 +67,15 @@ module.exports.detail = async (req, res) => {
         
         const product = await Product.findOne(find);
         // const newProducts = productsHelper.priceNewProducts(product);
-
+        if(!req.cookies.cartId){
+            const expiresTime = 1000 * 60 * 60 * 24 * 365;
+            const cart = new Cart();
+            await cart.save();
+            console.log(cart);
+            res.cookie("cartId", cart.id, {
+                expires: new Date(Date.now() + expiresTime)
+            });  
+        }
         res.render("client/pages/products/detail", {
             pageTitle: product.title,
             product: product
@@ -105,7 +124,15 @@ module.exports.category = async (req, res) => {
     }).sort({ position: "desc"});
 
     const newProducts = productsHelper.priceNewProducts(products);
-
+    if(!req.cookies.cartId){
+        const expiresTime = 1000 * 60 * 60 * 24 * 365;
+        const cart = new Cart();
+        await cart.save();
+        console.log(cart);
+        res.cookie("cartId", cart.id, {
+            expires: new Date(Date.now() + expiresTime)
+        });  
+    }
     
     res.render("client/pages/products/index", {
         pageTitle: category.title,

@@ -1,19 +1,21 @@
 extends ../../layout/default.pug
 include ../../mixins/box-head.pug
- 
+include ../../mixins/alert.pug
 
 block main
-  <div class="container-fluid page-header py-5">
+    
+    <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Cửa hàng</h1>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                 <li class="breadcrumb-item"><a href="#">Pages</a></li>
                 <li class="breadcrumb-item active text-white">Cửa hàng</li>
             </ol>
-  </div>
+    </div>
+    
         <!-- Single Page Header End -->
 
-
+        +alert-success(2000) 
         <!-- Fruits Shop Start-->
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
@@ -221,7 +223,8 @@ block main
                     </div>
                 </div>
             </div>
-  </div>
+    </div>
     <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top">
         <i class="fa fa-arrow-up"></i>
-    </a>   
+    </a>
+      

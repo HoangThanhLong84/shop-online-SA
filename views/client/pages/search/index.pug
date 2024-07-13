@@ -1,9 +1,10 @@
 extends ../../layout/default.pug
 include ../../mixins/box-head.pug
- 
+include ../../mixins/alert.pug
 
 block main
-  <div class="container-fluid page-header py-5">
+    
+    <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Cửa hàng</h1>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
@@ -11,8 +12,9 @@ block main
                 
                 <li class="breadcrumb-item active text-white" style="text-transform: capitalize">#{keyword}</li>
             </ol>
-  </div>
+    </div>
         <!-- Single Page Header End -->
+        +alert-success(2000)
         <!-- Fruits Shop Start-->
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
@@ -196,6 +198,7 @@ block main
                                                         form(
                                                             action=`/cart/add/${item.id}`
                                                             method="POST"
+                                                            
                                                         )
                                                             <button class="btn border border-secondary rounded-pill px-3 text-primary" type="submit">
                                                                 <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào giỏ hàng
