@@ -4,37 +4,39 @@ include ../../mixins/pagination.pug
 
 
 block main
-    div(class="page-header")
-        h1 a
-        small Admin / Product-Category
-    .page-content 
-        .card.mb-3 
-            .card-header Danh mục sản phẩm
-            .card-body
-                .row
-                    .col-8
-                    .col-2
-                    .col-2
-                        a(
-                            href=`${prefixAdmin}/product-category/create`
-                            class="btn btn-outline-success mb-3"
-                        ) + Thêm mới
-                
-                table(
-                    width='100%'
-                    checkbox-multi
-                )
-                    thead 
-                        tr
-                            th 
-                                input(type="checkbox" name="checkall") 
-                            th STT 
-                            th Hình ảnh
-                            th Tiêu đề
-                            th Vị trí
-                            th Trạng thái
-                            th Hành động
+    if(role.permission.includes("product-category_view"))
+        div(class="page-header")
+            h1 a
+            small Admin / Product-Category
+        .page-content 
+            .card.mb-3 
+                .card-header Danh mục sản phẩm
+                .card-body
+                    .row
+                        .col-8
+                        .col-2
+                        .col-2
+                            if(role.permission.includes("product-category_create"))
+                                a(
+                                    href=`${prefixAdmin}/product-category/create`
+                                    class="btn btn-outline-success mb-3"
+                                ) + Thêm mới
+                    
+                    table(
+                        width='100%'
+                        checkbox-multi
+                    )
+                        thead 
+                            tr
+                                th 
+                                    input(type="checkbox" name="checkall") 
+                                th STT 
+                                th Hình ảnh
+                                th Tiêu đề
+                                th Vị trí
+                                th Trạng thái
+                                th Hành động
 
-                    tbody
-                        +table-tree(records)
-        +pagination(pagination)
+                        tbody
+                            +table-tree(records)
+            +pagination(pagination)

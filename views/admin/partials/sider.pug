@@ -25,30 +25,35 @@ input#menu-toggle(type='checkbox')
           a(href=`${prefixAdmin}/dashboard`)
             span.las.la-home
             small Tổng quan
-        li
-          a(href=`${prefixAdmin}/product-category`)
-            span.las.la-clipboard-list
-            small Danh mục sản phẩm
-        li
-          a(href=`${prefixAdmin}/products`)
-            span.las.la-clipboard-list
-            small Danh sách sản phẩm
-        li
-          a(href=`${prefixAdmin}/roles`)
-            span.las.la-tasks
-            small Nhóm quyền
-        li
-          a(href=`${prefixAdmin}/roles/permissions`)
-            span.las.la-tasks
-            small Phân quyền
-        li
-          a(href=``)
-            span.las.la-user-alt
-            small Danh sách tài khoản
-        <li>
-            <a href="">
-                <span class="las la-shopping-cart"></span>
-                <small>Danh sách đơn hàng</small>
-            </a>
-        </li>
+        if(role.permission.includes("product-category_view"))
+          li
+            a(href=`${prefixAdmin}/product-category`)
+              span.las.la-clipboard-list
+              small Danh mục sản phẩm
+        if(role.permission.includes("product_view"))
+          li
+            a(href=`${prefixAdmin}/products`)
+              span.las.la-clipboard-list
+              small Danh sách sản phẩm
+        if(role.permission.includes("roles_view"))
+          li
+            a(href=`${prefixAdmin}/roles`)
+              span.las.la-tasks
+              small Nhóm quyền
+        if(role.permission.includes("roles_permissions"))
+          li
+            a(href=`${prefixAdmin}/roles/permissions`)
+              span.las.la-tasks
+              small Phân quyền
+        if(role.permission.includes("accounts_view"))
+          li
+            a(href=`${prefixAdmin}/accounts`)
+              span.las.la-user-alt
+              small Danh sách tài khoản
+        //- <li>
+        //-     <a href="">
+        //-         <span class="las la-shopping-cart"></span>
+        //-         <small>Danh sách đơn hàng</small>
+        //-     </a>
+        //- </li>
         

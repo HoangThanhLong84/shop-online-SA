@@ -1,4 +1,5 @@
 const Product = require("../../models/product.model");
+const ProductCategory = require("../../models/product-category.model");
 
 const productsHelper = require("../../helper/products");
 
@@ -9,14 +10,38 @@ module.exports.index = async (req, res) => {
         deleted: false,
     }).sort({position: "desc"});
 
-    const newProducts = products.map(item => {
-        item.priceNew = (item.price*(100 - item.discountPercentage)/100).toFixed(0);
-        return item;
-    });
+    const newProducts = productsHelper.priceNewProducts(products);
+
+
+    let find = {
+        deleted: false
+    };
+
+    let count = 0;
+    function createTree(arr, parentId = "") {
+        const tree = [];
+        arr.forEach((item) => {
+            if (item.parent_id === parentId) {
+                count++;
+                const newItem = item;
+                newItem.index = count;
+                const children = createTree(arr, item.id);
+                if (children.length > 0) {
+                    newItem.children = children;
+                }
+                tree.push(newItem);
+            }
+        });
+        return tree;
+    }
+
+    const records = await ProductCategory.find(find);
+    const newRecords = createTree(records);
 
     res.render("client/pages/products/index", {
         pageTitle: "Trang danh sách sản phẩm",
         products: newProducts,
+        records: newRecords
     });
 }
 
@@ -25,7 +50,8 @@ module.exports.detail = async (req, res) => {
     try {
         const find = {
             deleted: false,
-            slug: req.params.slug
+            slug: req.params.slugProduct,
+            status: "active"
         };
         
         const product = await Product.findOne(find);
@@ -40,3 +66,51 @@ module.exports.detail = async (req, res) => {
         res.redirect(`/products`);
     }
 }
+
+module.exports.category = async (req, res) => {
+    
+    const category = await ProductCategory.findOne({
+        slug: req.params.slugCategory,
+        deleted: false
+    });
+
+    let find = {
+        deleted: false
+    };
+
+    let count = 0;
+    function createTree(arr, parentId = "") {
+        const tree = [];
+        arr.forEach((item) => {
+            if (item.parent_id === parentId) {
+                count++;
+                const newItem = item;
+                newItem.index = count;
+                const children = createTree(arr, item.id);
+                if (children.length > 0) {
+                    newItem.children = children;
+                }
+                tree.push(newItem);
+            }
+        });
+        return tree;
+    }
+
+    const records = await ProductCategory.find(find);
+    const newRecords = createTree(records);
+    
+    const products = await Product.find({
+        product_category_id: category.id,
+        deleted: false
+    }).sort({ position: "desc"});
+
+    const newProducts = productsHelper.priceNewProducts(products);
+
+    
+    res.render("client/pages/products/index", {
+        pageTitle: category.title,
+        products: newProducts,
+        records: newRecords
+    });
+}
+

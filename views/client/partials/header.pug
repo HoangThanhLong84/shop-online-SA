@@ -25,7 +25,7 @@
           a.nav-item.nav-link.active(href='/') Trang chủ
           a.nav-item.nav-link(href='/products') Cửa hàng
           .nav-item.dropdown
-            a.nav-link.dropdown-toggle(href='#' data-bs-toggle='dropdown') Pages
+            a.nav-link.dropdown-toggle(href='#' data-bs-toggle='dropdown' class="submenu") Pages
             .dropdown-menu.m-0.bg-secondary.rounded-0
               a.dropdown-item(href='cart.html') Giỏ hàng
               a.dropdown-item(href='chackout.html') Checkout
@@ -41,13 +41,20 @@
           a.my-auto(href='#')
             i.fas.fa-user.fa-2x
 #searchModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-  .modal-dialog.modal-fullscreen
-    .modal-content.rounded-0
-      .modal-header
-        h5#exampleModalLabel.modal-title Search by keyword
-        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-      .modal-body.d-flex.align-items-center
-        .input-group.w-75.mx-auto.d-flex
-          input.form-control.p-3(type='search' placeholder='keywords' aria-describedby='search-icon-1')
-          span#search-icon-1.input-group-text.p-3
-            i.fa.fa-search
+  form(
+    action="/search"
+    method="GET"
+  )
+    .modal-dialog.modal-fullscreen
+      .modal-content.rounded-0
+        .modal-header
+          h5#exampleModalLabel.modal-title Tìm kiếm sản phẩm theo từ khóa
+          button.btn-close(type='submit' data-bs-dismiss='modal' aria-label='Close')
+        .modal-body.d-flex.align-items-center
+          .input-group.w-75.mx-auto.d-flex
+            input.form-control.p-3(type='text' placeholder='Nhập từ khóa...' class="form-control" name="keyword" aria-describedby='search-icon-1' value=keyword)
+            span#search-icon-1.input-group-text.p-3
+              button(
+                type="submit"
+                class="btn btn-success"
+              ) Tìm

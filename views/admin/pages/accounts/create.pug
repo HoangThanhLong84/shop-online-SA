@@ -1,81 +1,81 @@
 extends ../../layout/default.pug
 include ../../mixins/alert.pug
-include ../../mixins/select-tree.pug
 
 block main
-    if(role.permission.includes("product-category_edit"))
+    if(role.permission.includes("accounts_create"))
         +alert-error(5000)
         +alert-success(5000)
+        
         <div class="page-header">
             <h1>a </h1>
-            <small>Admin / Products-Category / Edit / #{data.title}</small>
+            <small>Admin / Accounts / Create</small>
         </div>
         .page-content
-            h1(class="mb-4") Chỉnh sửa danh mục sản phẩm
-            
+            h1(class="mb-4") Thêm mới tài khoản
             form(
-                action=`${prefixAdmin}/product-category/edit/${data.id}?_method=PATCH`
+                action=`${prefixAdmin}/accounts/create`
                 method="POST"
                 enctype="multipart/form-data"
             )
                 div(class="form-group")
-                    label(for="title") Tiêu đề
+                    label(for="fullName") Họ tên *
                     input(
                         type="text"
                         class="form-control"
-                        id="title"
-                        name="title"
-                        required
-                        value=data.title  
-                    )
+                        id="fullName"
+                        name="fullName"
+                        required  
+                    ) 
                 div(class="form-group")
-                    label(for="title") Danh mục cha
-                    select(
-                        name="parent_id"
-                        id="parent_id"
-                        class="form-control"
-                    )
-                        option(value="") -- Chọn danh mục cha --
-                        if(records)
-                            +select-tree(records, 1, data.parent_id)  
-                div(class="form-group")
-                    label(for="desc") Mô tả 
-                    textarea(
+                    label(for="email") Email *
+                    input(
                         type="text"
-                        class="form-control textarea-mce"
-                        id="desc"
-                        name="descriptionDetail"
-                        rows="3"
-                    ) #{data.descriptionDetail}
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        required  
+                    )
+                div(class="form-group")
+                    label(for="password") Mật khẩu *
+                    input(
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        required  
+                    )
+                div(class="form-group")
+                    label(for="phone") Số điện thoại
+                    input(
+                        type="text"
+                        class="form-control"
+                        id="phone"
+                        name="phone"
+                    ) 
                 div(
                     class="form-group"
                     upload-image
                 )
-                    label(for="thumbnail") Ảnh
+                    label(for="avatar") Avatar
                     input(
                         type="file"
                         class="form-control-file"
-                        id="thumbnail"
-                        name="thumbnail"
+                        id="avatar"
+                        name="avatar"
                         accept="image/*"
                         upload-image-input
                     )
                     img(
-                        src=data.thumbnail
+                        src=""
                         upload-image-preview
                         class="image-preview" 
                     )
                 div(class="form-group")
-                    label(for="position") Vị trí
-                    input(
-                        type="number"
-                        class="form-control"
-                        id="position"
-                        name="position"
-                        placeholder="Tự động tăng"
-                        min="1"
-                        value=data.position
-                    )
+                    label(for="role_id") Phân quyền 
+                    select(name="role_id" id="role_id" class="form-control")
+                        option(disable) -- Chọn --
+                        each item in roles
+                            option(value=item.id) #{item.title} 
                 div(class="form-group form-check form-check-inline")
                     input(
                         type="radio"
@@ -83,7 +83,7 @@ block main
                         id="statusActive"
                         name="status"
                         value="active"
-                        checked=(data.status == "active" ? true : false)
+                        checked
                     )
                     label(for="statusActive" class="form-check-label") Hoạt động
                 div(class="form-group form-check form-check-inline")
@@ -93,13 +93,10 @@ block main
                         id="statusInActive"
                         name="status"
                         value="inactive"
-                        checked=(data.status == "inactive" ? true : false)
                     )
                     label(for="statusInActive" class="form-check-label") Dừng hoạt động
                 div(class="form-group")
                     button(
                         type="submit"
                         class="btn btn-primary"
-                    ) Cập nhật
-                
-        script (src="/admin/js/product.js")
+                    ) Tạo mới

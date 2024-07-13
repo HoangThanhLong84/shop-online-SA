@@ -6,7 +6,7 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
 
-block main  
+block main
     .page-header
         h1 Dashboard
         small Home / Dashboard
@@ -44,6 +44,8 @@ block main
                     small New E-mails received
                         .card-indicator
                             .indicator.four(style='width: 90%')
+        div #{user}
+        div #{role}
         //- .records.table-responsive
         //-     .record-header
         //-         .add
