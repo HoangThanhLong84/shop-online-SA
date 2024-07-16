@@ -1,35 +1,35 @@
-// const Cart = require("../../models/cart.model");
-// const Product = require("../../models/product.model");
+const Cart = require("../../models/cart.model");
+const Product = require("../../models/product.model");
 
-// const productsHelper = require("../../helper/products");
+const productsHelper = require("../../helper/products");
 
-// module.exports.index = async (req, res) => {
+module.exports.index = async (req, res) => {
 
-//     const cartId = req.cookies.cartId;
+    const cartId = req.cookies.cartId;
 
-//     const cart = await Cart.findOne({
-//         _id: cartId
-//     });
+    const cart = await Cart.findOne({
+        _id: cartId
+    });
     
-//     if(cart.products.length > 0) {
-//         for(const item of cart.products){
-//             const productId = item.product_id;
-//             const productInfo = await Product.findOne({
-//                 _id:productId
-//             });
+    if(cart.products.length > 0) {
+        for(const item of cart.products){
+            const productId = item.product_id;
+            const productInfo = await Product.findOne({
+                _id:productId
+            });
 
-//             productInfo.priceNew = productsHelper.priceNewProduct(productInfo);
+            productInfo.priceNew = productsHelper.priceNewProduct(productInfo);
 
-//             item.productInfo= productInfo;
+            item.productInfo= productInfo;
 
-//             item.totalPrice = item.quantity * productInfo.priceNew;
-//         }
-//     }
+            item.totalPrice = item.quantity * productInfo.priceNew;
+        }
+    }
 
-//     cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice,0);
+    cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice,0);
 
-//     res.render("client/pages/checkout/index", {
-//         pageTitle: "Trang thanh toán",
-//         cartDetail: cart
-//     });
-// }
+    res.render("client/pages/checkout/index", {
+        pageTitle: "Trang thanh toán",
+        cartDetail: cart
+    });
+}

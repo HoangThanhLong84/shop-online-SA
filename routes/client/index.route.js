@@ -8,14 +8,14 @@ const checkoutRoutes = require("./checkout.route");
 
 module.exports = (app) => {
     
-    // app.use(cartMiddleware.cartId);
+    app.use(cartMiddleware.cartId);
     app.use("/", homeRoutes);
 
     app.use("/products", productRoutes);
 
     app.use("/search", searchRoutes);
     
-    // app.use("/cart", cartRoutes);
+    app.use("/cart", cartRoutes);
     
-    // app.use("/checkout", checkoutRoutes);
+    app.use("/checkout", checkoutRoutes);
 } 
