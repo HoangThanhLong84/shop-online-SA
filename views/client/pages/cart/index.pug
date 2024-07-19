@@ -13,7 +13,7 @@ block main
     </div>
     <!-- Single Page Header End -->
 
-
+    +alert-success(2000)
     <!-- Cart Page Start -->
     <div class="container-fluid py-5">
         <div class="container py-5">
@@ -50,15 +50,13 @@ block main
                                     <td>
                                         <div class="input-group quantity mt-4" style="width: 100px;">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
-                                                <i class="fa fa-minus"></i>
-                                                </button>
+                                                button(class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" name="subQuantity" product-id= item.product_id value=item.quantity)
+                                                    <i class="fa fa-minus"></i>
                                             </div>
-                                            input(type="number" class="form-control form-control-sm text-center border-0" name="quantity" value=item.quantity min="1" item-id="")
+                                            input(type="number" class="form-control form-control-sm text-center border-0" name="quantity" value=item.quantity min="1" product-id= item.product_id)
                                             <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                button(class="btn btn-sm btn-plus rounded-circle bg-light border" name="addQuantity" type="button" product-id= item.product_id value=item.quantity)
                                                     <i class="fa fa-plus"></i>
-                                                </button>
                                             </div>
                                         </div>
                                     </td>
@@ -115,3 +113,5 @@ block main
         </div>
     </div>
     <!-- Cart Page End -->
+
+    script(src="/js/cart.js")
