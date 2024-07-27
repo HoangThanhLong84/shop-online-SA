@@ -7,13 +7,14 @@
           a.text-white(href='#') 123 DN11, phường Tân Hưng Thuận, Quận 12
         small.me-3
           i.fas.fa-envelope.me-2.text-secondary
-          a.text-white(href='#') NongsanGK@gmail.com
-      .top-link.pe-2
-        a.text-white(href='#')
-          small.text-white.mx-2 Chính sách bảo mật
-          | /
-        a.text-white(href='#')
-          small.text-white.mx-2 Điều khoản sử dụng
+          a.text-white(href='#') shop.nongsan.gk@gmail.com
+      if(!user)
+        .top-link.pe-2
+          a.text-white(href="/user/register")
+            small.text-white.mx-2 Đăng ký
+            | /
+          a.text-white(href="/user/login")
+            small.text-white.mx-2 Đăng nhập
   .container.px-0
     nav.navbar.navbar-light.bg-white.navbar-expand-xl
       a.navbar-brand(href='/')
@@ -27,19 +28,33 @@
           .nav-item.dropdown
             a.nav-link.dropdown-toggle(href='#' data-bs-toggle='dropdown' class="submenu") Pages
             .dropdown-menu.m-0.bg-secondary.rounded-0
-              a.dropdown-item(href='cart.html') Giỏ hàng
-              a.dropdown-item(href='chackout.html') Checkout
-              a.dropdown-item(href='testimonial.html') Testimonial
-              a.dropdown-item(href='404.html') 404 Page
-          a.nav-item.nav-link(href='contact.html') Liên hệ
+              a.dropdown-item(href='/cart') Giỏ hàng
+              a.dropdown-item(href='/checkout') Checkout
+          a.nav-item.nav-link(href='/contact') Liên hệ
         .d-flex.m-3.me-0
           button.btn-search.btn.border.border-secondary.btn-md-square.rounded-circle.bg-white.me-4(data-bs-toggle='modal' data-bs-target='#searchModal')
             i.fas.fa-search.text-primary
           a.position-relative.me-4.my-auto(href="/cart")
             i.fa.fa-shopping-bag.fa-2x
             span.position-absolute.bg-secondary.rounded-circle.d-flex.align-items-center.justify-content-center.text-dark.px-1(style='top: -5px; left: 15px; height: 20px; min-width: 20px;') (#{miniCart ? miniCart.totalQuantity : "0"})
-          a.my-auto(href='#')
-            i.fas.fa-user.fa-2x
+          if(user)
+            <div class="avatar">
+                <img src="https://res.cloudinary.com/dhe34q7cd/image/upload/v1720447735/d9rvxsitng0jegl8ml3p.png" alt="">
+                <div class="dropdown-menu setting">
+                    <a href="/user/info">
+                      <div class="item"><span class="fas fa-user"></span> Profile</div>
+                    </a>
+                    //- <div class="item"><span class="fas fa-cog"></span>Setting</div>
+                    //- <div class="item"><span class="fas fa-credit-card"></span>Payments</div>
+                    <a href="/user/logout">
+                      <div class="item"><span class="fas fa-sign-out-alt"></span>Log Out</div>
+                    </a>
+                </div>
+            </div>
+          else
+            a.my-auto(href="/user/login")
+              i.fas.fa-user.fa-2x
+            
 #searchModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
   form(
     action="/search"

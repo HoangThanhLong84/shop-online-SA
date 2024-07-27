@@ -32,13 +32,13 @@ block main
                             <div class="col-md-12 col-lg-6">
                                 <div class="form-group form-item w-100">
                                     label(class="form-label my-3" for="lastName") Họ<sup>*</sup>
-                                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                    input(type="text" class="form-control" id="lastName" name="lastName" value=user.lastName required)
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-6">
                                 <div class="form-group form-item w-100">
                                     label(class="form-label my-3" for="firstName") Tên<sup>*</sup>
-                                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                    input(type="text" class="form-control" id="firstName" name="firstName" value=user.firstName required)
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@ block main
                         //- </div>
                         <div class="form-group form-item">
                             <label class="form-label my-3" for="address">Địa chỉ <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Nhập địa chỉ..." id="address" name="address" required>
+                            input(type="text" class="form-control" id="address" name="address" value=user.address required)
                         </div>
                         <div class="form-item">
                             <label class="form-label my-3">Thành phố/ Tỉnh<sup>*</sup></label>
@@ -64,11 +64,11 @@ block main
                         //- </div>
                         <div class="form-group form-item">
                             <label class="form-label my-3" for="phone">Số điện thoại<sup>*</sup></label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                            input(type="tel" class="form-control" id="phone" name="phone" value=user.phone required)
                         </div>
                         <div class="form-group form-item">
                             <label class="form-label my-3" for="email">Email<sup>*</sup></label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            input(type="email" class="form-control" id="email" name="email" value=user.email required)
                         </div>
                         //- <div class="form-check my-3">
                         //-     <input type="checkbox" class="form-check-input" id="Account-1" name="Accounts" value="Accounts">
@@ -127,15 +127,14 @@ block main
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
-                            <div class="col-12">
-                                <div class="form-check text-start my-3">
-                                    <input type="checkbox" class="form-check-input bg-primary border-0" id="Transfer-1" name="Transfer" value="Transfer">
-                                    <label class="form-check-label" for="Transfer-1">Chuyển khoản</label>
-                                </div>
-                            //-     <p class="text-start text-dark">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
-                            //- </div>
-                        </div>
+                        //- <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
+                        //-     <div class="col-12">
+                        //-         <div class="form-check text-start my-3">
+                        //-             <input type="checkbox" class="form-check-input bg-primary border-0" id="Transfer-1" name="Transfer" value="Transfer">
+                        //-             <label class="form-check-label" for="Transfer-1">Chuyển khoản</label>
+                        //-         </div>
+                           
+                        //- </div>
                         <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
                             <div class="col-12">
                                 <div class="form-check text-start my-3">

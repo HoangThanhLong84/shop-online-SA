@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema(
     {
         cart_id: String,
-        // user_id: String,
+        user_id: String,
         userInfo: {
             firstName: String,
             lastName: String,
@@ -19,6 +19,10 @@ const orderSchema = new mongoose.Schema(
                 quantity: Number
             }
         ],
+        delivery_status: {
+            type: String,
+            default: "not_delivery"
+        },
         Payments: String,
         Transfer: String
     },

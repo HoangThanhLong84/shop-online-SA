@@ -14,38 +14,42 @@ block main
         .analytics
             .card
                 .card-head
-                    h2 107,200
+                    h2 #{statistic.user.total}
                     span.las.la-user-friends
                 .card-progress
-                    small User activity this month
-                    .card-indicator
-                        .indicator.one(style='width: 60%')
+                    h4 Người dùng <br>
+                    small Hoạt động: <b> #{statistic.user.active}</b> <br>
+                    small Dừng hoạt động: <b> #{statistic.user.inactive}</b>
+                    
             .card
                 .card-head
-                    h2 340,230
+                    h2 #{statistic.categoryProduct.total}
                     span.las.la-eye
                 .card-progress
-                    small Page views
-                        .card-indicator
-                            .indicator.two(style='width: 80%')
+                    h4 Danh mục sản phẩm <br>
+                    small Hoạt động: <b> #{statistic.categoryProduct.active}</b> <br>
+                    small Dừng hoạt động: <b> #{statistic.categoryProduct.inactive}</b>
+                       
             .card
                 .card-head
-                    h2 $653,200
+                    h2 #{statistic.order.total}
                     span.las.la-shopping-cart
                 .card-progress
-                    small Monthly revenue growth
-                        .card-indicator
-                            .indicator.three(style='width: 65%')
+                    h4 Danh sách đơn hàng <br>
+                    small Chưa xử lý: <b> #{statistic.order.not_delivery}</b> <br>
+                    small Đã xử lý: <b> #{statistic.order.delivered}</b>
+                       
             .card
                 .card-head
-                    h2 47,500
+                    h2 #{statistic.product.total}
                     span.las.la-envelope
                 .card-progress
-                    small New E-mails received
-                        .card-indicator
-                            .indicator.four(style='width: 90%')
+                    h4 Sản phẩm <br>
+                    small Hoạt động: <b> #{statistic.product.active}</b> <br>
+                    small Dừng hoạt động: <b> #{statistic.product.inactive}</b>
+                        
         div #{user}
-        div #{role}
+        
         //- .records.table-responsive
         //-     .record-header
         //-         .add

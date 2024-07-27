@@ -530,3 +530,82 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+.avatar
+{
+    cursor: pointer;
+    position: relative;
+}
+.avatar img
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+
+
+.dropdown-menu
+{
+    position: absolute;
+    right: 0;
+    top: 100%;
+    box-shadow: 0 8px 16px 0px rgba(0, 0, 0, .2);
+    background-color: var(--main-bg-color);
+    width: 280px;
+    border-radius: 7px;
+    display: none;
+}
+.dropdown-menu.active
+{
+    display: block;
+}
+.dropdown-menu.setting
+{
+    width: 150px;
+}
+.dropmenu-content
+{
+    max-height: 400px;
+    overflow-y: auto;
+}
+.dropdown-menu li ,
+.dropdown-menu .item
+{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--second-bg-color);
+    cursor: pointer;
+    font-size: 15px;
+}
+.dropdown-menu li img
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.dropdown-menu li .text
+{
+    margin-left: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
+}
+.dropdown-menu li:hover,
+.dropdown-menu .item:hover
+{
+    background-color: var(--second-bg-color);
+}
+.dropdown-menu li:hover .text
+{
+    white-space: pre-wrap;
+}
+.dropdown-menu .item span
+{
+    margin-right: 20px;
+}

@@ -173,3 +173,15 @@ if(buttonsGoBack.length > 0){
     });
 }
 // End button go back
+
+let avatar = document.querySelector(".avatar"), 
+    notification = document.querySelector(".notification");
+dropMenu(avatar)
+dropMenu(notification)
+function dropMenu(selector)
+{
+   selector.addEventListener("click",()=>{
+        let dropDownMenu = selector.querySelector(".dropdown-menu");
+        dropDownMenu.classList.contains("active") ?  dropDownMenu.classList.remove("active") :  dropDownMenu.classList.add("active") ;
+   })
+}

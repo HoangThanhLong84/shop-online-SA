@@ -1,5 +1,6 @@
 const Account = require("../../models/account.model");
 const Role = require("../../models/role.model");
+const Product = require("../../models/product.model");
 const systemConfig = require("../../config/system");
 
 module.exports.requireAuth = async (req, res, next) => {
