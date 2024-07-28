@@ -2,6 +2,7 @@ const ProductCategory = require("../../models/product-category.model");
 const Product = require("../../models/product.model");
 const User = require("../../models/user.model");
 const Order = require("../../models/order.model");
+const paginationHelper = require("../../helper/pagination");
 
 // GET /admin/dashboard
 module.exports.dashboard = async (req, res) => {
@@ -87,9 +88,24 @@ module.exports.dashboard = async (req, res) => {
     statistic.order.delivered = await Order.countDocuments({
         status: "delivered"
     });
+
+
+    const countOrders = await Order.countDocuments();
+    let objectPagination = paginationHelper(
+        {
+        currentPage:1,
+        limitItems: 4
+        },
+        req.query,
+        countOrders
+    );
+
+    const orders = await Order.find().limit(objectPagination.limitItems).skip(objectPagination.skip);
     
     res.render("admin/pages/dashboard/index", {
         pageTitle: "Trang tổng quan",
-        statistic: statistic
+        statistic: statistic,
+        orders: orders,
+        pagination: objectPagination
     });
 } 

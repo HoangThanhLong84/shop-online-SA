@@ -7,7 +7,8 @@ const validate = require("../../validates/admin/account.validate");
 const controller = require("../../controllers/admin/account.controller");
 
 router.get("/", controller.index);
-
+router.delete("/delete/:id", controller.deleteItem);
+router.get("/change-status/:status/:id", controller.changeStatus)
 router.get("/create", controller.create);
 
 router.post(

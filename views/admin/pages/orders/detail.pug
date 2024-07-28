@@ -1,0 +1,64 @@
+extends ../../layout/default.pug
+
+block main
+    <div class="page-header">
+        <h1>a </h1>
+        <small>Admin / Products / Detail / #{order.userInfo.firstName} #{order.userInfo.lastName}</small>
+    </div>
+    .page-content
+        .card.mb-3
+            .card-header
+                h4 Thông tin đơn hàng
+            .card-body
+                div(class="mb-4") Tên khách hàng: <b>#{order.userInfo.lastName} #{order.userInfo.firstName} </b>
+                div(class="mb-4") Email đặt hàng: <b>#{order.userInfo.email} </b>
+                div(class="mb-4") SĐT đặt hàng: <b>#{order.userInfo.phone} </b>
+                div(class="mb-4") Địa chỉ giao hàng: <b>#{order.userInfo.address} </b>
+                if(order.Payments == "Payments")
+                    div(class="mb-4") Hình thức thanh toán: <b>Tiền mặt </b>
+                
+                if(order.products)
+                    div(class="mb-4")
+                        span Tình trạng xử lý: 
+                        if(order.status == "not_delivery")
+                            span(class="badge badge-danger") Chưa giao hàng
+                        else 
+                            span(class="badge badge-success") Đã giao hàng
+        .card.mb-3
+            .card-header 
+                h4 Danh sách sản phẩm đã đặt 
+            .card-body
+                .row
+                    .col-8 
+                    .col-2
+                    .col-2
+            table(
+                width='100%'
+                checkbox-multi
+            )
+                thead 
+                    tr
+                    
+                        th Sản phẩm
+                        th Tên
+                        th Giá
+                        th Số lượng 
+                        
+                
+                tbody
+                    each item in order.products
+                        tr 
+                            td 
+                                img(
+                                    src=item.productInfo.thumbnail
+                                    alt=item.productInfo.title
+                                    width="100px"
+                                    height="auto"
+                                )
+                            td #{item.productInfo.title }
+
+                            td #{item.priceNew} VNĐ
+
+                            td #{item.quantity}
+                            
+                div(class="mb-4") Tổng tiền: <b>#{order.total} VNĐ</b>

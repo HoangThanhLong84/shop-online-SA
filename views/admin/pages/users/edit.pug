@@ -1,0 +1,72 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block main
+    if(role.permission.includes("users_edit"))
+        +alert-success(5000)
+        +alert-error(5000)
+        <div class="page-header">
+            <h1>a </h1>
+            <small>Admin / Users / Edit / #{data.lastName} #{data.firstName}</small>
+        </div>
+        .page-content
+            .card.mb-3
+                h1(class="mb-4") Chỉnh sửa tài khoản người dùng
+                form(
+                    action=`${prefixAdmin}/users/edit/${data.id}?_method=PATCH`
+                    method="POST"
+                )
+                    div(class="form-group")
+                        label(for="lastName") Họ
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="lastName"
+                            name="lastName"
+                            required
+                            value=data.lastName
+                        )
+                    div(class="form-group")
+                        label(for="firstName") Tên
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="firstName"
+                            name="firstName"
+                            required
+                            value=data.firstName
+                        )
+                    div(class="form-group")
+                        label(for="email") Email
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            value=data.email
+                            required
+                        )
+                    div(class="form-group")
+                        label(for="phone") Phone
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="phone"
+                            name="phone"
+                            value=data.phone
+                            required
+                        )
+                    div(class="form-group")
+                        label(for="address") Address
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="address"
+                            name="address"
+                            value=data.address
+                        )
+                    div(class="form-group")
+                        button(
+                            type="submit"
+                            class="btn btn-primary"
+                        ) Cập nhật

@@ -1,6 +1,9 @@
 const md5= require("md5");
 const Account = require("../../models/account.model");
 const Role = require("../../models/role.model");
+const filterStatusHelper = require("../../helper/filterStatus");
+const searchHelper = require("../../helper/search");
+const paginationHelper = require("../../helper/pagination");
 
 const systemConfig = require("../../config/system");
 
@@ -10,7 +13,30 @@ module.exports.index = async (req, res) => {
         deleted: false
     };
     
-    const records = await Account.find(find).select("-password -token");
+    const filterStatus= filterStatusHelper(req.query);
+    if(req.query.status) {
+        find.status = req.query.status;
+    }
+    
+    const objectSearch = searchHelper(req.query);
+    if(objectSearch.regex){
+        find.fullName= objectSearch.regex;
+    }
+    
+    // Pagination
+    const countAccounts = await Account.countDocuments(find);
+    let objectPagination = paginationHelper(
+        {
+        currentPage:1,
+        limitItems: 4
+        },
+        req.query,
+        countAccounts
+    );
+    // End Pagination
+
+
+    const records = await Account.find(find).select("-password -token").limit(objectPagination.limitItems).skip(objectPagination.skip);
 
     for (const record of records){
         const role = await Role.findOne({
@@ -23,9 +49,32 @@ module.exports.index = async (req, res) => {
 
     res.render("admin/pages/accounts/index", {
         pageTitle: "Danh sách tài khoản",
-        records: records
+        records: records,
+        filterStatus: filterStatus,
+        keyword: objectSearch.keyword,
+        pagination: objectPagination
     });
 }
+
+
+// GET /admin/accounts/change-status/:status/:id
+module.exports.changeStatus = async (req,res) => {
+    const status = req.params.status;
+    const id = req.params.id;
+
+    await Account.updateOne({_id:id}, {status:status});
+
+    req.flash("success", "Cập nhật trạng thái tài khoản thành công!");
+    res.redirect("back");
+}
+
+// DELETE /admin/accounts/delete/:id
+module.exports.deleteItem = async (req,res) => {
+    const id = req.params.id;
+    await Account.updateOne({ _id: id}, { deleted: true, deleteAt: new Date()});
+    req.flash("success", "Xóa thành công tài khoản!");
+    res.redirect("back");
+};
 
 module.exports.create = async (req, res) => {
     const roles = await Role.find({

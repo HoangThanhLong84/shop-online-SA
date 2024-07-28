@@ -16,6 +16,25 @@ if (buttonsStatus.length > 0) {
     });
 }
 
+
+const buttonDelivery = document.querySelectorAll("[button-delivery");
+if (buttonDelivery.length > 0) {
+    let url = new URL(window.location.href);
+
+    buttonDelivery.forEach(button => {
+        button.addEventListener("click", () => {
+            const delivery_status = button.getAttribute("button-delivery");
+            if (delivery_status) {
+                url.searchParams.set("delivery_status", delivery_status);
+            } else {
+                url.searchParams.delete("delivery_status");
+            }
+
+            window.location.href = url.href;
+        });
+    });
+}
+
 // Form Search
 const formSearch = document.querySelector("#form-search");
 if (formSearch) {

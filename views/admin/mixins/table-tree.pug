@@ -61,10 +61,10 @@ mixin table-tree(items, level=1)
                             class="badge badge-danger"
                         ) Dừng hoạt động
             td 
-                a(
-                    href=`${prefixAdmin}/product-category/detail/${item.id}`
-                    class="btn btn-secondary btn-sm"
-                ) Chi tiết
+                //- a(
+                //-     href=`${prefixAdmin}/product-category/detail/${item.id}`
+                //-     class="btn btn-secondary btn-sm"
+                //- ) Chi tiết
                 if(role.permission.includes("product-category_edit"))
                     a(
                         href=`${prefixAdmin}/product-category/edit/${item.id}`
@@ -78,3 +78,5 @@ mixin table-tree(items, level=1)
                     ) Xóa
         if item.children && item.children.length > 0
             +table-tree(item.children, level + 1)
+    
+    

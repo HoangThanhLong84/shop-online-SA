@@ -1,20 +1,20 @@
 extends ../../layout/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/pagination.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
-include ../../mixins/pagination.pug
 
 block main
-    if(role.permission.includes("accounts_view"))
+    if(role.permission.includes("users_view"))
         +alert-success(5000)
         +alert-error(5000)  
         div(class="page-header")
             h1 a
-            small Admin / Account 
+            small Admin / Users 
         .page-content
             .card.mb-3 
                 .card-header 
-                    h4 Danh sách tài khoản
+                    h4 Danh sách người dùng
                 .card-body
                     .row
                         .col-6 
@@ -27,9 +27,9 @@ block main
                         .col-8 
                         .col-2
                         .col-2
-                            if(role.permission.includes("accounts_create"))
+                            if(role.permission.includes("users_create"))
                                 a(
-                                    href=`${prefixAdmin}/accounts/create`
+                                    href=`${prefixAdmin}/users/create`
                                     class="btn btn-outline-success"
                                 ) + Thêm mới
                 table(
@@ -38,12 +38,13 @@ block main
                 )
                     thead 
                         tr
-                             
+                            
                             th STT 
-                            th Avatar
+                            
                             th Họ tên
-                            th Phân quyền
                             th Email
+                            th Số điện thoại 
+                            th Địa chỉ
                             th Trạng thái
                             th Hành động
 
@@ -52,18 +53,13 @@ block main
                             tr
                                 
                                 td #{pagination.limitItems*(pagination.currentPage - 1)+(index+1)}
-                                td 
-                                    img(
-                                        src=item.avatar
-                                        alt=item.fullName
-                                        width="100px"
-                                        height="auto"
-                                    )
-                                td #{item.fullName}
-                                td #{item.role.title}
+                                
+                                td #{item.lastName} #{item.firstName}
                                 td #{item.email}
+                                td #{item.phone}
+                                td #{item.address}
                                 td
-                                    if(role.permission.includes("accounts_edit"))
+                                    if(role.permission.includes("users_edit"))
                                         if(item.status == "active")
                                             a(
                                                 href="javascript:;"
@@ -98,34 +94,35 @@ block main
                                                 class="badge badge-danger"
                                             ) Dừng hoạt động
                                 td 
-                                    //- a(
-                                    //-     href=`${prefixAdmin}/accounts/detail/${item.id}`
-                                    //-     class="btn btn-secondary btn-sm"
-                                    //- ) Chi tiết
-                                    if(role.permission.includes("accounts_edit"))
+                                    a(
+                                        href=`${prefixAdmin}/users/detail/${item.id}`
+                                        class="btn btn-secondary btn-sm"
+                                    ) Chi tiết
+                                    if(role.permission.includes("users_edit"))
                                         a(
-                                            href=`${prefixAdmin}/accounts/edit/${item.id}`
+                                            href=`${prefixAdmin}/users/edit/${item.id}`
                                             class="btn btn-warning btn-sm ml-1"
                                         ) Sửa
-                                    if(role.permission.includes("accounts_delete"))
+                                    if(role.permission.includes("users_delete"))
                                         button(
                                             class="btn btn-danger btn-sm ml-1"
                                             button-delete
                                             data-id=item.id
                                         ) Xóa
             +pagination(pagination)
-        form(
-            action=""
-            method="POST"
-            id="form-delete-item"
-            data-path=`${prefixAdmin}/accounts/delete`
-        )
-
+        
         form(
             action=""
             method="GET"
             id="form-change-status"
-            data-path=`${prefixAdmin}/accounts/change-status`
+            data-path=`${prefixAdmin}/users/change-status`
         )
 
-        script(src="/admin/js/account.js")
+        form(
+            action=""
+            method="POST"
+            id="form-delete-item"
+            data-path=`${prefixAdmin}/users/delete`
+        )
+
+        script(src="/admin/js/user.js")

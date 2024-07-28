@@ -1,4 +1,5 @@
 const Role = require("../../models/role.model");
+const paginationHelper = require("../../helper/pagination");
 const systemConfig = require("../../config/system");
 
 // GET /admin/roles
@@ -7,14 +8,36 @@ module.exports.index = async (req, res) => {
         deleted: false
     };
 
-    const records = await Role.find(find);
+
+    // Pagination
+    const countRoles = await Role.countDocuments(find);
+    let objectPagination = paginationHelper(
+        {
+        currentPage:1,
+        limitItems: 4
+        },
+        req.query,
+        countRoles
+    );
+
+    // End Pagination
+    const records = await Role.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
 
     res.render("admin/pages/roles/index", {
         pageTitle: "Nhóm quyền",
-        records: records
+        records: records,
+        pagination: objectPagination
     });
 } 
 
+module.exports.deleteItem = async (req,res) => {
+    const id = req.params.id;
+
+    // await Product.deleteOne({ _id: id});
+    await Role.updateOne({ _id: id}, { deleted: true, deleteAt: new Date()});
+    req.flash("success", "Xóa thành công role!");
+    res.redirect("back");
+};
 
 module.exports.create = async (req, res) => {
     
@@ -27,6 +50,7 @@ module.exports.createPost = async (req, res) => {
    
     const record = new Role(req.body);
     await record.save();
+    req.flash("success", "Tạo mới nhóm quyền thành công")
     res.redirect(`${systemConfig.prefixAdmin}/roles`)
 } 
 

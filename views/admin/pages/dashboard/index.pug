@@ -24,7 +24,7 @@ block main
             .card
                 .card-head
                     h2 #{statistic.categoryProduct.total}
-                    span.las.la-eye
+                    span.lab.la-buromobelexperte
                 .card-progress
                     h4 Danh mục sản phẩm <br>
                     small Hoạt động: <b> #{statistic.categoryProduct.active}</b> <br>
@@ -42,71 +42,99 @@ block main
             .card
                 .card-head
                     h2 #{statistic.product.total}
-                    span.las.la-envelope
+                    span.las.la-apple-alt
                 .card-progress
                     h4 Sản phẩm <br>
                     small Hoạt động: <b> #{statistic.product.active}</b> <br>
                     small Dừng hoạt động: <b> #{statistic.product.inactive}</b>
                         
-        div #{user}
-        
-        //- .records.table-responsive
-        //-     .record-header
-        //-         .add
-        //-             span Entries
-        //-             select(name='' id='')
-        //-                 option(value='') ID
-        //-             button Add record
-        //-         .browse
-        //-             input.record-search(type='search' placeholder='Search')
-        //-             select(name='' id='')
-        //-                 option(value='') Status
-        //- div
-        //-     table(width='100%')
-        //-         thead
-        //-             tr
-        //-                 th #
-        //-                 th
-        //-                     span.las.la-sort
-        //-                     |  CLIENT
-        //-                 th
-        //-                     span.las.la-sort
-        //-                     |  TOTAL
-        //-                 th
-        //-                     span.las.la-sort
-        //-                     |  ISSUED DATE
-        //-                 th
-        //-                     span.las.la-sort
-        //-                     |  BALANCE
-        //-                 th
-        //-                     span.las.la-sort
-        //-                     |  ACTIONS
-        //-         tbody
-        //-             tr
-        //-                 td #5033
-        //-                 td
-        //-                     .client
-        //-                         .client-img.bg-img(style='background-image: url(img/3.jpeg)')
-        //-                         .client-info
-        //-                             h4 Andrew Bruno
-        //-                             small bruno@crossover.org
-        //-                 td
-        //-                     | $3171
-        //-                 td
-        //-                     | 19 April, 2022
-        //-                 td
-        //-                     | -$205
-        //-                 td
-        //-                     a(
-        //-                         href=``
-        //-                         class="btn btn-secondary btn-sm"
-        //-                     ) Chi tiết
-        //-                     a(
-        //-                         href=``
-        //-                         class="btn btn-warning btn-sm ml-1"
-        //-                     ) Sửa
-        //-                     button(
-        //-                         class="btn btn-danger btn-sm ml-1"
-        //-                         button-delete
-                                
-        //-                     ) Xóa
+        .card.mb-3
+            .records.table-responsive
+                .record-header
+                    h5 Danh sách đơn hàng [ Chưa Xử Lý ]
+                    .add
+                        a(href=`${prefixAdmin}/orders`) 
+                            button Đến trang quản lý đơn hàng
+            div
+                table(width='100%')
+                    thead
+                        tr
+                            th STT
+                            th
+                                span.las.la-sort
+                                | Ngày tạo 
+                            th
+                                span.las.la-sort
+                                |  Tên khách hàng
+                            th
+                                span.las.la-sort
+                                |  Địa chỉ
+                            th
+                                span.las.la-sort
+                                |  Tổng tiền
+                            th
+                                span.las.la-sort
+                                |  Loại thanh toán
+                            th
+                                span.las.la-sort
+                                |  Tình trạng 
+                            th
+                                span.las.la-sort
+                                |  Hành động 
+                    tbody
+                        each item,index in orders
+                            if(item.status == "not_delivery")
+                                tr
+                                    td #{pagination.limitItems*(pagination.currentPage - 1)+(index+1)}
+                                    td #{item.createdAt}
+                                        
+                                    td #{item.userInfo.lastName} #{item.userInfo.firstName}
+                                    td #{item.userInfo.address}
+                                    td #{item.total}
+                                    if(item.Payments == "Payments")
+                                        td Tiền mặt
+                                    
+                                    td
+                                        if(role.permission.includes("orders_edit"))
+                                            if(item.status == "not_delivery")
+                                                a(
+                                                    href="javascript:;"
+                                                    data-status=item.status
+                                                    data-id= item.id
+                                                    button-change-status
+                                                    class="badge badge-danger"
+                                                ) Chưa giao hàng
+                                            else 
+                                                a(
+                                                    href="javascript:;"
+                                                    data-status=item.status
+                                                    data-id= item.id
+                                                    button-change-status 
+                                                    class="badge badge-success"
+                                                ) Đã giao hàng
+                                        else 
+                                            if(item.status == "not_delivery")
+                                                a(
+                                                    
+                                                    data-status=item.status
+                                                    data-id= item.id
+                                                    
+                                                    class="badge badge-danger"
+                                                ) Chưa giao hàng
+                                            else 
+                                                a(
+                                                    
+                                                    data-status=item.status
+                                                    data-id= item.id
+                                                        
+                                                    class="badge badge-success"
+                                                ) Đã giao hàng
+                                    td 
+                                        a(
+                                            href=`${prefixAdmin}/orders/detail/${item.id}`
+                                            class="btn btn-secondary btn-sm"
+                                        ) Chi tiết
+
+        +pagination(pagination)
+                            
+                            

@@ -36,6 +36,7 @@ module.exports.index = async (req, res) => {
 }
 
 
+
 module.exports.order = async (req, res) => {
     const cartId = req.cookies.cartId;
     const userInfo = req.body;
@@ -43,6 +44,24 @@ module.exports.order = async (req, res) => {
     const cart = await Cart.findOne({
         _id: cartId
     });
+
+    if(cart.products.length > 0) {
+        for(const item of cart.products){
+            const productId = item.product_id;
+            const productInfo = await Product.findOne({
+                _id:productId
+            });
+
+            productInfo.priceNew = productsHelper.priceNewProduct(productInfo);
+
+            item.productInfo= productInfo;
+
+            item.totalPrice = item.quantity * productInfo.priceNew;
+        }
+    }
+
+    cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice,0);
+    const total = cart.totalPrice;
 
     let products =[];
 
@@ -63,13 +82,15 @@ module.exports.order = async (req, res) => {
 
         products.push(objectProduct);
     }
-    console.log(products);
 
     const objectOrder = {
         cart_id: cartId,
         userInfo: userInfo,
-        products: products
+        products: products,
+        total: total
     };
+
+
 
     const order = new Order(objectOrder);
     await order.save();
@@ -99,7 +120,7 @@ module.exports.success = async (req, res) => {
         product.totalPrice = product.priceNew * product.quantity;
     }
     
-    order.totalPrice = order.products.reduce((sum, item) => sum + item.totalPrice,0)
+    order.totalPrice = order.products.reduce((sum, item) => sum + item.totalPrice,0);
     
 
 

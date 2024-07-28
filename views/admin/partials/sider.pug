@@ -19,27 +19,29 @@ input#menu-toggle(type='checkbox')
       | A
       span dmin
   .side-content
-    <div class="profile">
-        <div class="profile-img bg-img" style="background-image: url(https://res.cloudinary.com/dhe34q7cd/image/upload/v1720447735/d9rvxsitng0jegl8ml3p.png)"></div>
-        <h4>#{user.fullName}</h4>
-        <small>#{role.title}</small>
-    </div>
+    
     .side-menu
       ul
         li
           a(href=`${prefixAdmin}/dashboard`)
             span.las.la-home
             small Tổng quan
-        if(role.permission.includes("product-category_view"))
-          li
-            a(href=`${prefixAdmin}/product-category`)
-              span.las.la-clipboard-list
-              small Danh mục sản phẩm
+        if(role.permission.includes("orders_view"))
+          li 
+            a(href=`${prefixAdmin}/orders`)
+              span.las.la-shopping-cart 
+              small Danh sách đơn hàng
         if(role.permission.includes("product_view"))
           li
             a(href=`${prefixAdmin}/products`)
               span.las.la-clipboard-list
               small Danh sách sản phẩm
+        if(role.permission.includes("product-category_view"))
+          li
+            a(href=`${prefixAdmin}/product-category`)
+              span.las.la-clipboard-list
+              small Danh mục sản phẩm
+        
         if(role.permission.includes("roles_view"))
           li
             a(href=`${prefixAdmin}/roles`)
@@ -55,10 +57,11 @@ input#menu-toggle(type='checkbox')
             a(href=`${prefixAdmin}/accounts`)
               span.las.la-user-alt
               small Danh sách tài khoản
-        //- <li>
-        //-     <a href="">
-        //-         <span class="las la-shopping-cart"></span>
-        //-         <small>Danh sách đơn hàng</small>
-        //-     </a>
-        //- </li>
+        if(role.permission.includes("users_view"))
+          li 
+            a(href=`${prefixAdmin}/users`)
+              span.las.la-user-alt 
+              small Danh sách người dùng
+        
+        
         

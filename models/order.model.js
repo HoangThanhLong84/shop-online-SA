@@ -19,12 +19,16 @@ const orderSchema = new mongoose.Schema(
                 quantity: Number
             }
         ],
-        delivery_status: {
+        status: {
             type: String,
             default: "not_delivery"
         },
-        Payments: String,
-        Transfer: String
+        Payments: {
+            type: String,
+            default: "Payments"
+        },
+        Transfer: String,
+        total: String,
     },
     { timestamps: true }
 );

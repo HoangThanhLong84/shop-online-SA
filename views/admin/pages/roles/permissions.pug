@@ -10,7 +10,8 @@ block main
             small Admin / Roles / Permissions
         .page-content 
             .card.mb-3 
-                .card-header Phân quyền
+                .card-header 
+                    h4 Phân quyền
                 if(records)
                     div(data-records=records)
                     .card-body
@@ -40,7 +41,7 @@ block main
                                             input(type="text" value=item.id)
                                 tr
                                     td(colspan="4")
-                                        h5 Danh mục sản phẩm 
+                                        h5(style='color: black') Danh mục sản phẩm
                                 tr(data-name="product-category_view")
                                     td Xem 
                                     each item in records 
@@ -66,7 +67,7 @@ block main
 
                                 tr 
                                     td(colspan="4")
-                                        h5 Sản phẩm 
+                                        h5(style='color: black') Sản phẩm 
                                 tr(data-name="product_view")
                                     td Xem 
                                     each item in records 
@@ -88,10 +89,36 @@ block main
                                         td(class="text-center")
                                             input(type="checkbox")
 
+                                //- Order
+                                tr 
+                                    td(colspan="4")
+                                        h5(style='color: black') Danh sách đơn hàng
+                                tr(data-name="orders_view")
+                                    td Xem 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+                                tr(data-name="orders_create")
+                                    td Thêm mới 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+                                tr(data-name="orders_edit")
+                                    td Chỉnh sửa 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+                                tr(data-name="orders_delete")
+                                    td Xóa 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+
+
                                 //- Roles
                                 tr 
                                     td(colspan="4")
-                                        h5 Nhóm quyền 
+                                        h5(style='color: black') Nhóm quyền 
                                 tr(data-name="roles_view")
                                     td Xem 
                                     each item in records 
@@ -117,7 +144,7 @@ block main
                                 //- Account
                                 tr 
                                     td(colspan="4")
-                                        h5 Danh sách tài khoản 
+                                        h5(style='color: black') Danh sách tài khoản 
                                 tr(data-name="accounts_view")
                                     td Xem 
                                     each item in records 
@@ -139,9 +166,37 @@ block main
                                         td(class="text-center")
                                             input(type="checkbox")
                                 
+                                
+                                
+                                
                                 tr(data-name="roles_permissions")
                                     td 
-                                        h5 Phân quyền
+                                        h5(style='color: black') Phân quyền
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+
+                                //- User
+                                tr 
+                                    td(colspan="4")
+                                        h5(style='color: black') Danh sách người dùng 
+                                tr(data-name="users_view")
+                                    td Xem 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+                                tr(data-name="users_create")
+                                    td Thêm mới 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+                                tr(data-name="users_edit")
+                                    td Chỉnh sửa 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+                                tr(data-name="users_delete")
+                                    td Xóa 
                                     each item in records 
                                         td(class="text-center")
                                             input(type="checkbox")
