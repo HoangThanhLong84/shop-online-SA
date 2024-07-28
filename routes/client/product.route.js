@@ -9,4 +9,11 @@ router.get("/detail/:slugProduct", controller.detail);
 
 router.get("/:slugCategory", controller.category);
 
+
+
+router.post(
+    "/detail/:slugProduct/create",
+    controller.createPost
+);
+
 module.exports = router;

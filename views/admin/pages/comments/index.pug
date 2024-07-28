@@ -1,0 +1,67 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/pagination.pug
+
+block main
+    +alert-success(5000)
+    +alert-error(5000)
+    if(role.permission.includes("comments_view"))
+          
+        div(class="page-header")
+            h1 a
+            small Admin / Comments 
+        .page-content
+            .card.mb-3 
+                .card-header 
+                    h4 Danh sách bình luận
+                .card-body
+                    .row
+                        .col-6 
+                            
+                        .col-6 
+                            
+            .card.mb-3 
+                .card-body
+                    .row
+                        .col-8 
+                        .col-2
+                        .col-2
+                table(
+                    width='100%'
+                    checkbox-multi
+                )
+                    thead 
+                        tr
+                             
+                            th STT 
+                            th Họ tên
+                            th Email
+                            th Ngày tạo
+                            th Chi tiết
+                            th Hành động
+
+                    tbody
+                        each item, index in records 
+                            tr
+                                
+                                td #{pagination.limitItems*(pagination.currentPage - 1)+(index+1)}
+                                td #{item.fullName}
+                                td #{item.email}
+                                td #{item.createdAt}
+                                td #{item.description}
+                                td 
+                                    if(role.permission.includes("comments_delete"))
+                                        button(
+                                            class="btn btn-danger btn-sm ml-1"
+                                            button-delete
+                                            data-id=item.id
+                                        ) Xóa
+            +pagination(pagination)
+        form(
+            action=""
+            method="POST"
+            id="form-delete-item"
+            data-path=`${prefixAdmin}/comments/delete`
+        )
+
+        script(src="/admin/js/account.js")

@@ -62,6 +62,11 @@ input#menu-toggle(type='checkbox')
             a(href=`${prefixAdmin}/users`)
               span.las.la-user-alt 
               small Danh sách người dùng
+        if(role.permission.includes("comments_view"))
+          li 
+            a(href=`${prefixAdmin}/comments`)
+              span.las.la-user-alt 
+              small Danh sách bình luận
         
         
         

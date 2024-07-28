@@ -49,6 +49,7 @@ block main
                     small Dừng hoạt động: <b> #{statistic.product.inactive}</b>
                         
         .card.mb-3
+            
             .records.table-responsive
                 .record-header
                     h5 Danh sách đơn hàng [ Chưa Xử Lý ]
@@ -61,25 +62,25 @@ block main
                         tr
                             th STT
                             th
-                                span.las.la-sort
+                                
                                 | Ngày tạo 
                             th
-                                span.las.la-sort
+                                
                                 |  Tên khách hàng
                             th
-                                span.las.la-sort
+                                
                                 |  Địa chỉ
                             th
-                                span.las.la-sort
+                                
                                 |  Tổng tiền
                             th
-                                span.las.la-sort
+                                
                                 |  Loại thanh toán
                             th
-                                span.las.la-sort
+                                
                                 |  Tình trạng 
                             th
-                                span.las.la-sort
+                                
                                 |  Hành động 
                     tbody
                         each item,index in orders

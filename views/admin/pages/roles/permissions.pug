@@ -200,6 +200,21 @@ block main
                                     each item in records 
                                         td(class="text-center")
                                             input(type="checkbox")
+
+                                //- Comment
+                                tr 
+                                    td(colspan="4")
+                                        h5(style='color: black') Danh sách bình luận 
+                                tr(data-name="comments_view")
+                                    td Xem 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
+                                tr(data-name="comments_delete")
+                                    td Xóa 
+                                    each item in records 
+                                        td(class="text-center")
+                                            input(type="checkbox")
                                 
                         form(
                             id="form-change-permissions"

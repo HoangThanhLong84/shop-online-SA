@@ -1,22 +1,37 @@
 const Product = require("../../models/product.model");
 const ProductCategory = require("../../models/product-category.model");
 const Cart = require("../../models/cart.model");
+const Comment = require("../../models/comment.model");
+const paginationHelper = require("../../helper/pagination");
 
 const productsHelper = require("../../helper/products");
 
 // GET /products
 module.exports.index = async (req, res) => {
-    const products = await Product.find({
-        status: "active",
-        deleted: false,
-    }).sort({position: "desc"});
-
-    const newProducts = productsHelper.priceNewProducts(products);
-
-
+    
     let find = {
         deleted: false
     };
+    // Pagination
+    const countProducts = await Product.countDocuments(find);
+    let objectPagination = paginationHelper(
+        {
+        currentPage:1,
+        limitItems: 6
+        },
+        req.query,
+        countProducts
+    );
+    // End Pagination
+    
+    
+    const products = await Product.find({
+        status: "active",
+        deleted: false
+    }).sort({position: "desc"}).limit(objectPagination.limitItems).skip(objectPagination.skip);
+
+    const newProducts = productsHelper.priceNewProducts(products);
+
 
     let count = 0;
     function createTree(arr, parentId = "") {
@@ -52,7 +67,8 @@ module.exports.index = async (req, res) => {
     res.render("client/pages/products/index", {
         pageTitle: "Trang danh sách sản phẩm",
         products: newProducts,
-        records: newRecords
+        records: newRecords,
+        pagination: objectPagination,
     });
 }
 
@@ -66,7 +82,7 @@ module.exports.detail = async (req, res) => {
         };
         
         const product = await Product.findOne(find);
-        // const newProducts = productsHelper.priceNewProducts(product);
+        
         if(!req.cookies.cartId){
             const expiresTime = 1000 * 60 * 60 * 24 * 365;
             const cart = new Cart();
@@ -76,15 +92,31 @@ module.exports.detail = async (req, res) => {
                 expires: new Date(Date.now() + expiresTime)
             });  
         }
+
+        const comment = await Comment.find({
+            deleted: false
+        });
+
         res.render("client/pages/products/detail", {
             pageTitle: product.title,
-            product: product
+            product: product,
+            comment: comment
         });
 
     } catch (error) {
         res.redirect(`/products`);
     }
 }
+
+
+module.exports.createPost = async (req, res) => {
+   
+    const record = new Comment(req.body);
+    await record.save();
+    req.flash("success", "Đăng bình luận thành công");
+    res.redirect("back");
+}
+
 
 module.exports.category = async (req, res) => {
     
@@ -134,7 +166,7 @@ module.exports.category = async (req, res) => {
         });  
     }
     
-    res.render("client/pages/products/index", {
+    res.render("client/pages/products/category", {
         pageTitle: category.title,
         products: newProducts,
         records: newRecords
