@@ -7,6 +7,8 @@ router.get("/", controller.index);
 
 router.get("/change-status/:status/:id", controller.changeStatus);
 
+router.get("/change-verify/:verify/:id", controller.changeVerify);
+
 router.get("/detail/:id", controller.detail);
 
 module.exports = router;

@@ -7,6 +7,7 @@ const productsHelper = require("../../helper/products");
 module.exports.index = async (req, res) => {
 
     const cartId = req.cookies.cartId;
+    const tokenUser = req.cookies.tokenUser;
 
     const cart = await Cart.findOne({
         _id: cartId
@@ -31,7 +32,8 @@ module.exports.index = async (req, res) => {
 
     res.render("client/pages/checkout/index", {
         pageTitle: "Trang thanh toán",
-        cartDetail: cart
+        cartDetail: cart,
+        tokenUser: tokenUser
     });
 }
 

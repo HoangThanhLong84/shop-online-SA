@@ -36,7 +36,8 @@
       .col-lg-3.col-md-6
         .d-flex.flex-column.text-start.footer-item
           h4.text-light.mb-3 Tài khoản
-          a.btn-link(href='/user/info') Tài khoản của tôi
+          if(user)
+            a.btn-link(href='/user/info') Tài khoản của tôi
           a.btn-link(href='/products') Cửa hàng
           a.btn-link(href='/cart') Giỏ hàng
           

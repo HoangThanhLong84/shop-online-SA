@@ -49,7 +49,9 @@ block main
                                 th STT 
                                 th Hình ảnh
                                 th Tiêu đề
-                                th Giá 
+                                th Giá
+                                th Ngày hết hạn
+                                th Giảm giá 
                                 th Vị trí
                                 th Trạng thái
                                 th Hành động
@@ -73,6 +75,9 @@ block main
                                         )
                                     td #{item.title}
                                     td #{item.price}VNĐ
+                                    td #{item.expireAt}
+                                    td #{item.discountPercentage} %
+                                        
                                     td
                                         input(
                                             type="number"

@@ -29,6 +29,10 @@ const orderSchema = new mongoose.Schema(
         },
         Transfer: String,
         total: String,
+        verify: {
+            type: String,
+            default: "not_verify"
+        }
     },
     { timestamps: true }
 );

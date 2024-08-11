@@ -1,13 +1,14 @@
 extends ../../layout/default.pug
-include ../../mixins/alert.pug
+
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
+include ../../mixins/alert.pug
 
 block main
+    
     if(role.permission.includes("accounts_view"))
-        +alert-success(5000)
-        +alert-error(5000)  
+         
         div(class="page-header")
             h1 a
             small Admin / Account 

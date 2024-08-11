@@ -8,8 +8,8 @@ include ../../mixins/form-change-multi.pug
 
 
 block main
-    +alert-success(5000)
-    +alert-error(5000)
+    +alert-success("5000")
+    +alert-error("5000")
     if(role.permission.includes("product-category_view"))
         div(class="page-header")
             h1 a

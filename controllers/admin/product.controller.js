@@ -47,13 +47,15 @@ module.exports.index = async (req, res) => {
     // End Sort
 
     const products = await Product.find(find).sort(sort).limit(objectPagination.limitItems).skip(objectPagination.skip);
+    
 
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
         products: products,
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,
-        pagination: objectPagination
+        pagination: objectPagination,
+        
     });
 }
 
@@ -94,6 +96,7 @@ module.exports.changeMulti = async (req,res) => {
             req.flash("success", `Thay đổi vị trí thành công ${ids.length} sản phẩm!`);
             // await Product.updateMany({ _id: { $in: ids } }, { deleted: true, deleteAt: new Date()});
             break;
+        
         default:
             break;
     }
@@ -143,6 +146,11 @@ module.exports.create = async (req, res) => {
 
 module.exports.createPost = async (req, res) => {
     
+
+    let find = {
+        deleted: false
+    };
+
     req.body.price= parseInt(req.body.price);
     req.body.discountPercentage= parseInt(req.body.discountPercentage);
     req.body.stock= parseInt(req.body.stock);
@@ -153,9 +161,17 @@ module.exports.createPost = async (req, res) => {
     }else{
         req.body.position= parseInt(req.body.position);
     }
+    
+    const category = await ProductCategory.findOne({_id: req.body.product_category_id});
+    req.body.category= category.title;
+    
+    const expireAt = new Date(new Date().getTime() + 86400 * 1000 * req.body.expireAt);
+    req.body.expireAt= expireAt;
 
     const product= new Product(req.body);
+    
     await product.save();
+    
     req.flash("success", "Tạo mới sản phẩm thành công")
     res.redirect(`${systemConfig.prefixAdmin}/products`);
 
@@ -209,6 +225,7 @@ module.exports.editPatch = async (req, res) => {
     req.body.discountPercentage= parseInt(req.body.discountPercentage);
     req.body.stock= parseInt(req.body.stock);
     req.body.position= parseInt(req.body.position);
+    
     
     // if(req.file){
     //     req.body.thumbnail = `/uploads/${req.file.filename}`;
